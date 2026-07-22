@@ -21,7 +21,7 @@ export default function App() {
       <header className="sticky top-0 z-40 border-b border-slate-200 bg-white/90 backdrop-blur">
         <div className="mx-auto flex max-w-5xl flex-wrap items-center gap-x-4 gap-y-2 px-4 py-3">
           <h1 className="text-lg font-black tracking-tight text-slate-900">
-            🚑 EMT Field Impression Funnels
+            🚑 medass
           </h1>
           <nav className="flex flex-wrap gap-1.5">
             {NAV.map((n) => (

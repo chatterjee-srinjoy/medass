@@ -1,6 +1,8 @@
-# EMT Field Impression Funnels
+# medass
 
-Study tool for NREMT medical assessment / psychomotor prep — cue-driven differential diagnosis funnels, practice scenarios, condition cards, med profiles, and reference sheets.
+EMT field impression funnels — NREMT medical assessment / psychomotor study tool.
+
+Cue-driven differential diagnosis, practice scenarios, condition cards, med profiles, and reference sheets.
 
 Built with ♥ from **EMT-253AL** · Bay Area Training Academy (BATA).
 
@@ -15,10 +17,9 @@ Open the URL Vite prints (usually `http://localhost:5173`).
 
 ## Deploy (Vercel)
 
-1. Push this repo to GitHub (already done if you're reading this on GitHub).
-2. Go to [vercel.com](https://vercel.com) → Sign in with GitHub → **Add New Project** → Import this repo.
-3. Leave the defaults (Vite is auto-detected) → Deploy.
-4. Share the `*.vercel.app` link with classmates.
+1. Go to [vercel.com](https://vercel.com) → Sign in with GitHub → **Add New Project** → Import this repo.
+2. Leave the defaults (Vite is auto-detected) → Deploy.
+3. Share the `*.vercel.app` link with classmates.
 
 ## What's in here
 
