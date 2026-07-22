@@ -182,8 +182,49 @@ export const CONDITIONS: Record<string, Condition> = {
     confusedWith: [
       { conditionId: 'hypoglycemia', how: 'The classic mimic — check BG before calling a stroke.' },
       { conditionId: 'postictal', how: 'Postictal patients can have temporary one-sided weakness (Todd\'s paralysis); they IMPROVE over minutes, stroke doesn\'t.' },
+      { conditionId: 'increased-icp', how: 'A bad stroke (esp. bleed) can RAISE ICP — Cushing\'s triad + blown pupil means the brain is herniating. Same destination urgency, escalate airway/ALS.' },
     ],
-    examTips: ['TIA symptoms resolve on their own — transport anyway, it\'s a stroke warning shot.', 'Destination choice (stroke center) is a scored decision.'],
+    examTips: [
+      'TIA symptoms resolve on their own — transport anyway, it\'s a stroke warning shot.',
+      'Destination choice (stroke center) is a scored decision.',
+      'Watch for signs of increased ICP (Cushing\'s triad, unequal/blown pupil, posturing) — elevating the head ~30° helps; do NOT lay them flat.',
+    ],
+  },
+
+  'increased-icp': {
+    id: 'increased-icp',
+    name: 'Increased ICP (Intracranial Pressure)',
+    shortName: '↑ ICP',
+    findings: [
+      { phase: 'primary', label: 'LOC', value: 'Decreasing LOC → unresponsive; may have abnormal posturing (decorticate / decerebrate)' },
+      { phase: 'primary', label: 'Pupils', value: 'Unequal or blown (fixed & dilated) on one side — late and scary' },
+      { phase: 'history', label: 'Context', value: 'Often after head trauma, hemorrhagic stroke, or "worst headache of my life" (thunderclap). May have projectile vomiting' },
+      { phase: 'vitals', label: "Cushing's triad", value: '↑ BP (wide pulse pressure) + ↓ HR (bradycardia) + irregular / abnormal respirations' },
+    ],
+    keyDiscriminator: "Cushing's triad (high BP + low HR + weird breathing) ± unequal/blown pupil",
+    impression: 'Signs of increased intracranial pressure (intracranial emergency)',
+    interventions: {
+      airway: 'Protect early — OPA/NPA if needed; suction READY (vomiting). Request ALS if airway is failing',
+      oxygen: 'High-flow O2 / BVM 15 LPM if inadequate ventilation — never withhold if they need it',
+      meds: 'None. NO nitro (they already have high BP for a reason). Nothing by mouth',
+      medIds: ['oxygen'],
+      medControl: 'No meds to give',
+      positioning: 'Elevate head of bed ~30° if NO shock — lowers ICP. Do NOT lay flat unless they are hypotensive',
+      other: 'This is a FINDING / life-threat pattern, not a standalone NOI. The underlying cause is usually stroke, head trauma, or intracranial bleed — still Code 3',
+    },
+    shock: 'none',
+    shockNote: 'Do not confuse Cushing\'s hypertension with "treat the BP." High BP here is compensatory — you protect the airway and transport, you do not drop their pressure with nitro.',
+    transport: { code: 'Code 3 (Load and go)', destination: 'Closest ED / trauma or stroke center per MOI and protocol' },
+    confusedWith: [
+      { conditionId: 'stroke', how: 'Stroke can CAUSE increased ICP. BEFAST may still be positive — Cushing\'s + blown pupil means it\'s getting worse fast.' },
+      { conditionId: 'headache', how: 'Thunderclap "worst headache of my life" + Cushing\'s / AMS is not a migraine — treat as intracranial emergency.' },
+      { conditionId: 'htn-emergency', how: 'Both have high BP. Hypertensive emergency: high BP + headache/vision changes, usually tachycardic or normal HR. Cushing\'s: high BP + BRADYCARDIA + irregular respirations.' },
+    ],
+    examTips: [
+      'Memorize Cushing\'s triad: ↑ BP · ↓ HR · irregular respirations. That pattern on a neuro patient = ICP until proven otherwise.',
+      'AVPU/GCS will be dropping — reassess q5 min and say the trend out loud.',
+      'Head elevation ~30° only if they are not in shock. Shock wins over ICP positioning.',
+    ],
   },
 
   'seizure-active': {
@@ -777,6 +818,10 @@ export const CONDITIONS: Record<string, Condition> = {
     confusedWith: [
       { conditionId: 'stroke', how: 'RED FLAGS that mean this is NOT a simple headache: sudden "worst headache of my life" (thunderclap = possible bleed), focal deficits, AMS, fever + stiff neck (meningitis). Any of those → treat as the serious cause.' },
       { conditionId: 'htn-emergency', how: 'Severe headache + severely elevated BP + vision changes = hypertensive emergency, not a migraine.' },
+      { conditionId: 'increased-icp', how: 'Thunderclap headache + Cushing\'s triad (↑ BP, ↓ HR, irregular respirations) or blown pupil = increased ICP / intracranial emergency — not a migraine.' },
+    ],
+    examTips: [
+      'If the headache is sudden, maximal, "worst of my life," or paired with AMS / neuro deficits / Cushing\'s signs — do not call it a migraine.',
     ],
   },
 
@@ -802,6 +847,7 @@ export const CONDITIONS: Record<string, Condition> = {
     transport: { code: 'Code 3 if symptomatic', destination: 'Closest ED (stroke center if neuro deficits)' },
     confusedWith: [
       { conditionId: 'stroke', how: 'Hypertensive emergency can CAUSE a stroke — run BEFAST; any focal deficit → treat as stroke.' },
+      { conditionId: 'increased-icp', how: 'High BP alone ≠ Cushing\'s. Cushing\'s adds bradycardia + irregular respirations (± blown pupil). That pattern is ICP, not just a HTN emergency.' },
     ],
   },
 

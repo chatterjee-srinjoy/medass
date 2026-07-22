@@ -123,10 +123,25 @@ export const MNEMONICS: Mnemonic[] = [
     usedFor: 'Pupil assessment',
     expansion: [
       { letter: 'P', meaning: 'Pupils' },
-      { letter: 'E', meaning: 'Equal (unequal/blown → head trauma or stroke)' },
+      { letter: 'E', meaning: 'Equal (unequal/blown → head trauma, stroke, or increased ICP)' },
       { letter: 'R', meaning: 'Round' },
       { letter: 'R', meaning: 'Reactive to Light (pinpoint → opioid/cholinergic; dilated → stimulant/hypoxia)' },
       { letter: 'L', meaning: 'Light' },
+    ],
+  },
+  {
+    id: 'cushings',
+    name: "Cushing's Triad",
+    usedFor: 'Signs of increased intracranial pressure (ICP)',
+    expansion: [
+      { letter: '↑', meaning: 'Blood pressure — hypertension, often with a wide pulse pressure' },
+      { letter: '↓', meaning: 'Heart rate — bradycardia (this is the giveaway vs a plain hypertensive emergency)' },
+      { letter: '~', meaning: 'Respirations — irregular or abnormal breathing pattern' },
+    ],
+    notes: [
+      'Often paired with unequal/blown pupil, decreasing LOC, posturing, or projectile vomiting.',
+      'Elevate head ~30° if no shock. Do NOT give nitro. Protect airway, Code 3.',
+      'High BP here is compensatory — you are not treating the hypertension; you are treating the brain emergency.',
     ],
   },
   {

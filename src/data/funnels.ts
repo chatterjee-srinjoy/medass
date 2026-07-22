@@ -20,6 +20,7 @@ export const FUNNELS: Funnel[] = [
       'Check blood glucose on EVERY altered patient — hypoglycemia mimics almost everything in this funnel.',
       'Run AEIOUTIPS mentally: Alcohol, Epilepsy, Insulin, Opioids, Uremia/Underdose, Trauma, Infection, Psychosis, Stroke.',
       'Unresponsive = OPA/NPA + suction standby, always.',
+      "Cushing's triad (↑ BP + ↓ HR + irregular respirations) ± blown pupil = increased ICP — elevate head ~30° if no shock, Code 3.",
     ],
     root: {
       kind: 'node',
@@ -95,6 +96,7 @@ export const FUNNELS: Funnel[] = [
                   question: 'BEFAST exam and glucose',
                   branches: [
                     { finding: 'Facial droop / arm drift / slurred speech, BG NORMAL', detail: 'establish Time Last Known Well', child: leaf('stroke') },
+                    { finding: "Cushing's triad (↑ BP + ↓ HR + irregular resp) ± blown pupil", detail: 'increased ICP — elevate head ~30°, Code 3', child: leaf('increased-icp') },
                     { finding: 'Multiple people sick in the same building, heater running', child: leaf('co-poisoning') },
                     { finding: 'BG < 70', detail: 'the mimic strikes again', child: leaf('hypoglycemia') },
                   ],
@@ -263,6 +265,7 @@ export const FUNNELS: Funnel[] = [
                   question: 'Blood pressure and neuro exam?',
                   branches: [
                     { finding: 'Severely elevated (≥ 180 systolic) with symptoms', child: leaf('htn-emergency') },
+                    { finding: "Cushing's triad (↑ BP + bradycardia + irregular respirations) or thunderclap + AMS", child: leaf('increased-icp') },
                     { finding: 'BP okay, BEFAST negative, history of similar headaches', child: leaf('headache') },
                   ],
                 },
