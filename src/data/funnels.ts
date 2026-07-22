@@ -304,6 +304,7 @@ export const FUNNELS: Funnel[] = [
             branches: [
               { finding: 'Coffee-ground emesis or black tarry stool; NSAID use', child: leaf('ugib-ulcer') },
               { finding: 'Vomiting BRIGHT RED blood; heavy alcohol / liver disease', child: leaf('ugib-varices') },
+              { finding: 'Bright red blood per rectum (hematochezia) — volume enough to tank perfusion', child: leaf('lgib') },
               { finding: 'Female, missed period, vaginal bleeding, one-sided pain', child: leaf('ectopic') },
               { finding: 'Rigid board-like abdomen, fever, lies motionless', child: leaf('peritonitis') },
               { finding: 'On blood thinners / hemophilia — bleeding out of proportion', child: leaf('clotting-disorder') },
