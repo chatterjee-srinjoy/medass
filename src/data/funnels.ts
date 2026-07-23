@@ -97,6 +97,7 @@ export const FUNNELS: Funnel[] = [
                   branches: [
                     { finding: 'Facial droop / arm drift / slurred speech, BG NORMAL', detail: 'establish Time Last Known Well', child: leaf('stroke') },
                     { finding: "Cushing's triad (↑ BP + ↓ HR + irregular resp) ± blown pupil", detail: 'increased ICP — elevate head ~30°, Code 3', child: leaf('increased-icp') },
+                    { finding: 'Fever + severe headache + stiff neck/photophobia ± non-blanching rash', detail: 'droplet PPE — do not force neck flexion', child: leaf('meningitis') },
                     { finding: 'Multiple people sick in the same building, heater running', child: leaf('co-poisoning') },
                     { finding: 'BG < 70', detail: 'the mimic strikes again', child: leaf('hypoglycemia') },
                   ],
@@ -197,6 +198,7 @@ export const FUNNELS: Funnel[] = [
                   question: 'Onset and risk factors?',
                   branches: [
                     { finding: 'Sudden sharp pleuritic pain + surgery/travel/immobility/OCP', child: leaf('pe') },
+                    { finding: 'Hypotension + JVD + chest trauma/procedure/pericardial history', detail: "muffled heart sounds may complete Beck's triad", child: leaf('cardiac-tamponade') },
                     { finding: 'Anxiety, tingling fingers/lips, carpopedal spasm', detail: 'diagnosis of exclusion!', child: leaf('hyperventilation') },
                   ],
                 },
@@ -229,6 +231,7 @@ export const FUNNELS: Funnel[] = [
       'First branch is the pulse check. No pulse = CPR + AED, everything else waits.',
       'Take BP in BOTH arms — a significant difference flips you to dissection and flips the meds to NONE.',
       'Before nitro: systolic > 100? ED meds in the last 24–48 hr? Head injury? Their own prescription?',
+      "Hypotension + JVD + clear/equal lungs = obstructive shock: think tamponade or massive PE. Beck's triad may be incomplete.",
     ],
     root: {
       kind: 'node',
@@ -257,6 +260,7 @@ export const FUNNELS: Funnel[] = [
                 },
               },
               { finding: 'Sharp, pleuritic, mostly short of breath', detail: 'think lungs, not heart', child: leaf('pe') },
+              { finding: "Hypotensive + JVD + clear/equal lungs; chest trauma/procedure/pericardial history", detail: "suspect tamponade — don't wait for full Beck's triad", child: leaf('cardiac-tamponade') },
               {
                 finding: 'More headache/vision trouble than chest pain',
                 child: {
@@ -266,6 +270,7 @@ export const FUNNELS: Funnel[] = [
                   branches: [
                     { finding: 'Severely elevated (≥ 180 systolic) with symptoms', child: leaf('htn-emergency') },
                     { finding: "Cushing's triad (↑ BP + bradycardia + irregular respirations) or thunderclap + AMS", child: leaf('increased-icp') },
+                    { finding: 'Fever + stiff neck/photophobia ± altered LOC or non-blanching rash', detail: 'droplet PPE', child: leaf('meningitis') },
                     { finding: 'BP okay, BEFAST negative, history of similar headaches', child: leaf('headache') },
                   ],
                 },

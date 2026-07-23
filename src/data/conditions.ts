@@ -548,6 +548,42 @@ export const CONDITIONS: Record<string, Condition> = {
       { conditionId: 'pneumothorax-spont', how: 'Both: sudden sharp chest pain + dyspnea. Pneumothorax has DIMINISHED sounds on one side; PE sounds clear.' },
       { conditionId: 'ami', how: 'Chest pain + distress — PE pain is sharp/pleuritic (worse on breathing), AMI is crushing pressure.' },
       { conditionId: 'hyperventilation', how: 'Both anxious + tachypneic with clear lungs. PE has risk factors and true hypoxia — NEVER write off dyspnea as anxiety without considering PE.' },
+      { conditionId: 'cardiac-tamponade', how: 'Both can cause sudden dyspnea, clear lungs, hypotension, and obstructive shock. Tamponade adds JVD, muffled heart sounds, and a chest-trauma/procedure/pericardial history.' },
+    ],
+  },
+
+  'cardiac-tamponade': {
+    id: 'cardiac-tamponade',
+    name: 'Cardiac Tamponade',
+    shortName: 'Tamponade',
+    findings: [
+      { phase: 'primary', label: 'Perfusion', value: 'Tachycardia, weak pulses, pale/cool/diaphoretic skin, hypotension; dyspnea with often-clear lungs' },
+      { phase: 'history', label: 'Context', value: 'Penetrating/blunt chest trauma, recent cardiac procedure, or known pericarditis/pericardial effusion' },
+      { phase: 'vitals', label: "Beck's triad", value: 'Hypotension + JVD + muffled heart sounds — classic but often incomplete and typically late' },
+      { phase: 'vitals', label: 'Additional clues', value: 'Narrowing pulse pressure; pulsus paradoxus may occur. Patient can deteriorate rapidly to PEA arrest' },
+    ],
+    keyDiscriminator: "Obstructive shock + JVD + clear lungs in the right context; Beck's triad supports it but may be absent",
+    impression: 'Suspected cardiac tamponade causing obstructive shock',
+    interventions: {
+      airway: 'Maintain; OPA/NPA and BVM if LOC or ventilation deteriorates',
+      oxygen: 'High-flow O2; BVM 15 LPM if ventilation is inadequate',
+      meds: 'None at EMT level — definitive treatment requires pericardial decompression',
+      medIds: ['oxygen'],
+      medControl: 'No EMT medication; request ALS immediately',
+      positioning: 'Supine if hypotensive and tolerated; if lying flat worsens breathing, use the position that best supports ventilation',
+      other: 'Rapid transport with minimal scene time. Be ready for PEA arrest and immediate CPR/AED care',
+    },
+    shock: 'treat',
+    shockNote: 'This is obstructive shock: the heart is being compressed and cannot fill. Support ABCs, keep warm, request ALS, and load-and-go; you cannot correct the obstruction at EMT level.',
+    transport: { code: 'Code 3 (Load and go)', destination: 'Closest appropriate ED / trauma center per cause and protocol' },
+    confusedWith: [
+      { conditionId: 'pe', how: 'Both cause obstructive shock with clear lungs. Tamponade is favored by JVD + muffled sounds + chest trauma/procedure/pericardial history; PE by clot risks and pleuritic pain.' },
+      { conditionId: 'chf', how: 'Both can have JVD and dyspnea. CHF usually has wet crackles/pink froth; tamponade generally has clear lungs and hypotension.' },
+      { conditionId: 'pneumothorax-spont', how: 'Tension pneumothorax also causes JVD and shock, but breath sounds are diminished/absent on one side; tamponade lungs are generally equal and clear.' },
+    ],
+    examTips: [
+      "Do not require all of Beck's triad before suspecting tamponade — the full triad is insensitive and late.",
+      'JVD + hypotension + CLEAR/equal lungs should make you think obstructive shock (tamponade or massive PE), not CHF.',
     ],
   },
 
@@ -819,9 +855,43 @@ export const CONDITIONS: Record<string, Condition> = {
       { conditionId: 'stroke', how: 'RED FLAGS that mean this is NOT a simple headache: sudden "worst headache of my life" (thunderclap = possible bleed), focal deficits, AMS, fever + stiff neck (meningitis). Any of those → treat as the serious cause.' },
       { conditionId: 'htn-emergency', how: 'Severe headache + severely elevated BP + vision changes = hypertensive emergency, not a migraine.' },
       { conditionId: 'increased-icp', how: 'Thunderclap headache + Cushing\'s triad (↑ BP, ↓ HR, irregular respirations) or blown pupil = increased ICP / intracranial emergency — not a migraine.' },
+      { conditionId: 'meningitis', how: 'Headache + fever + stiff neck/photophobia or altered LOC is meningitis until proven otherwise — use droplet PPE and transport promptly.' },
     ],
     examTips: [
       'If the headache is sudden, maximal, "worst of my life," or paired with AMS / neuro deficits / Cushing\'s signs — do not call it a migraine.',
+    ],
+  },
+
+  meningitis: {
+    id: 'meningitis',
+    name: 'Meningitis',
+    findings: [
+      { phase: 'primary', label: 'General / LOC', value: 'Ill-appearing, fever, severe headache; irritability, lethargy, confusion, seizure, or decreasing LOC may develop' },
+      { phase: 'history', label: 'SAMPLE', value: 'Fever + headache + stiff/painful neck; photophobia, nausea/vomiting; recent infection or close-contact/dorm exposure' },
+      { phase: 'vitals', label: 'Skin / Perfusion', value: 'Possible non-blanching petechial or purpuric rash (especially meningococcal disease); tachycardia/hypotension suggest sepsis' },
+    ],
+    keyDiscriminator: 'Fever + severe headache + neck stiffness/photophobia, especially with AMS or a non-blanching rash',
+    impression: 'Suspected meningitis / meningococcal infection',
+    interventions: {
+      airway: 'Maintain; suction and airway adjunct if LOC falls. Do not force neck flexion or repeatedly test neck stiffness',
+      oxygen: 'O2 by severity; BVM 15 LPM if ventilation becomes inadequate',
+      meds: 'None at EMT level',
+      medIds: ['oxygen'],
+      medControl: 'No EMT medication',
+      positioning: 'Position of comfort; protect from injury if seizure occurs. Supine if septic shock develops',
+      other: 'Use droplet PPE, mask the patient if tolerated, limit exposure, and notify the receiving facility. Treat septic shock with BLOT if perfusion falls',
+    },
+    shock: 'watch',
+    shockNote: 'Meningococcal disease can progress rapidly to distributive/septic shock. Pale/mottled skin, weak rapid pulse, hypotension, or altered LOC → BLOT + Code 3.',
+    transport: { code: 'Code 3 if altered, septic, seizing, or rapidly worsening; otherwise prompt transport', destination: 'Closest appropriate ED' },
+    confusedWith: [
+      { conditionId: 'headache', how: 'A familiar gradual headache with normal neuro findings and no fever/stiff neck supports migraine/tension. Fever + meningismus or AMS is not a routine headache.' },
+      { conditionId: 'increased-icp', how: 'Both can cause headache, vomiting, and declining LOC. Cushing\'s triad/blown pupil points to dangerous ICP; fever/stiff neck/rash points to meningitis. Meningitis can itself raise ICP.' },
+      { conditionId: 'stroke', how: 'Stroke produces focal BEFAST deficits; meningitis more often produces fever, diffuse headache, neck stiffness, and global AMS.' },
+    ],
+    examTips: [
+      'The classic fever–headache–neck stiffness triad may be incomplete; do not rule meningitis out because one feature is missing.',
+      'A non-blanching purple/petechial rash with fever is a meningococcal emergency — droplet PPE, shock awareness, rapid transport.',
     ],
   },
 
